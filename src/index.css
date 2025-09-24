@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ice Pitch Pro Design System - Futuristic Cricket Stadium Theme */
+
+@layer base {
+  :root {
+    /* Core Ice Pitch Colors */
+    --pitch-black: 220 15% 8%;
+    --deep-charcoal: 217 19% 12%;
+    --slate-gray: 215 16% 25%;
+    --muted-blue: 213 20% 35%;
+    --ice-white: 210 40% 98%;
+    --electric-cyan: 191 91% 55%;
+    --electric-glow: 191 91% 65%;
+    --ice-blue: 200 50% 45%;
+    
+    /* Stadium Lighting */
+    --floodlight: 60 9% 98%;
+    --stadium-shadow: 220 15% 6%;
+    --pitch-line: 191 91% 75%;
+    
+    /* Main Theme Colors */
+    --background: var(--pitch-black);
+    --foreground: var(--ice-white);
+    
+    --card: var(--deep-charcoal);
+    --card-foreground: var(--ice-white);
+    
+    --popover: var(--deep-charcoal);
+    --popover-foreground: var(--ice-white);
+    
+    --primary: var(--electric-cyan);
+    --primary-foreground: var(--pitch-black);
+    
+    --secondary: var(--slate-gray);
+    --secondary-foreground: var(--ice-white);
+    
+    --muted: var(--muted-blue);
+    --muted-foreground: 213 15% 65%;
+    
+    --accent: var(--electric-glow);
+    --accent-foreground: var(--pitch-black);
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--ice-white);
+    
+    --border: var(--slate-gray);
+    --input: var(--muted-blue);
+    --ring: var(--electric-cyan);
+    
+    --radius: 0.75rem;
+    
+    /* Custom Gradients */
+    --gradient-stadium: linear-gradient(135deg, hsl(var(--pitch-black)), hsl(var(--deep-charcoal)));
+    --gradient-ice: linear-gradient(45deg, hsl(var(--ice-blue)), hsl(var(--electric-cyan)));
+    --gradient-glow: linear-gradient(90deg, transparent, hsl(var(--electric-cyan) / 0.3), transparent);
+    --gradient-pitch: radial-gradient(ellipse at center, hsl(var(--deep-charcoal)), hsl(var(--pitch-black)));
+    
+    /* Shadows */
+    --shadow-stadium: 0 25px 50px -12px hsl(var(--stadium-shadow) / 0.8);
+    --shadow-glow: 0 0 30px hsl(var(--electric-cyan) / 0.4);
+    --shadow-ice: 0 8px 32px hsl(var(--ice-blue) / 0.3);
+    
+    /* Typography */
+    --font-display: 'Montserrat', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: all 0.3s ease-out;
+    --bounce-gentle: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    background: var(--gradient-stadium);
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+}
+
+/* Prevent accidental opacity/visibility changes on body and main containers */
+body:hover,
+html:hover,
+#root:hover,
+#__next:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@layer components {
+  /* Stadium Glow Effects */
+  .glow-effect {
+    position: relative;
+  }
+  
+  .glow-effect::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--gradient-glow);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: var(--transition-glow);
+  }
+  
+  .glow-effect:hover::before {
+    opacity: 1;
+  }
+  
+  /* Ice Trail Cursor */
+  .cursor-trail {
+    cursor: none;
+  }
+  
+  /* Stadium Entrance Animation */
+  .stadium-entrance {
+    animation: stadium-entrance 1.2s var(--bounce-gentle) forwards;
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  
+  @keyframes stadium-entrance {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Pitch Line Animation */
+  .pitch-line {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pitch-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-ice);
+    animation: pitch-line-sweep 2s ease-in-out infinite;
+  }
+  
+  @keyframes pitch-line-sweep {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+  }
+  
+  /* Trophy Rotation */
+  .trophy-rotation {
+    transition: var(--transition-smooth);
+    transform-style: preserve-3d;
+  }
+  
+  .trophy-rotation:hover {
+    transform: rotateY(15deg) rotateX(5deg);
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Floodlight Effect */
+  .floodlight {
+    background: radial-gradient(ellipse at center, hsl(var(--electric-cyan) / 0.1), transparent 70%);
+    pointer-events: none;
+  }
+  
+  /* Stats Hologram */
+  .hologram-text {
+    background: var(--gradient-ice);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+    animation: hologram-shimmer 3s ease-in-out infinite;
+  }
+  
+  @keyframes hologram-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+}
